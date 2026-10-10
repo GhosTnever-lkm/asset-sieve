@@ -8,7 +8,7 @@ Asset Sieve only reads the selected folder. It never rewrites, moves, optimizes,
 
 Requires Python 3.10+.
 
-    py -m pip install "git+https://github.com/GhosTnever-lkm/asset-sieve.git@v0.1.1"
+    py -m pip install "git+https://github.com/GhosTnever-lkm/asset-sieve.git@v0.1.2"
     asset-sieve "D:\Games\MyProject\Assets" --md asset-report.md --json asset-report.json
 
 Run from a source checkout:
@@ -43,7 +43,14 @@ Reports contain local paths and should be reviewed before sharing. No files are 
 
 MIT. See LICENSE.
 
+## Development
+
+Run the unit and CLI checks with:
+
+    python -m unittest discover -s tests -v
+
 ## Support / Pro Version
 
 Asset Sieve is free and open source under MIT. There is no separate Pro build or paid feature set. If it helps your project, support development on Boosty or Buy Me a Coffee. Support does not unlock extra functionality.
+
 

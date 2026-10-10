@@ -8,3 +8,4 @@
 
 - Initial release: local image inventory, identical-file groups, size and dimension findings, unreadable-image list, Markdown and JSON reports, and a non-mutating CLI.
 
+
