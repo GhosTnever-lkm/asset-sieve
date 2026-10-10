@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "asset-sieve"
-version = "0.1.0"
+version = "0.1.1"
 description = "Local audit reports for game art and image asset folders"
 readme = "README.md"
 requires-python = ">=3.10"
@@ -19,3 +19,4 @@ asset-sieve = "asset_sieve.cli:main"
 
 [tool.setuptools.packages.find]
 include = ["asset_sieve*"]
+

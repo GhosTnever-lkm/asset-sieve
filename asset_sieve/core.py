@@ -83,7 +83,7 @@ def scan(root: Path, *, max_file_mb: float = 16, max_dimension: int = 8192,
     warnings += [{"kind": "large-dimensions", "path": r["path"], "detail": f'{r["width"]}x{r["height"]} exceeds {max_dimension}px'} for r in large_dimensions]
     warnings += [{"kind": "unreadable", **item} for item in unreadable]
     return {
-        "tool": "Asset Sieve", "version": "0.1.0", "root": str(root),
+        "tool": "Asset Sieve", "version": "0.1.1", "root": str(root),
         "summary": {
             "images": len(records), "total_bytes": sum(r["bytes"] for r in records),
             "duplicates": len(duplicates), "duplicate_bytes": sum(d["wasted_bytes"] for d in duplicates),
@@ -134,3 +134,4 @@ def markdown(report: dict) -> str:
     lines.extend(f"| {fmt} | {data['files']} | {data['bytes'] / (1024 * 1024):.2f} |" for fmt, data in report["by_format"].items())
     lines += ["", "This report is diagnostic. Asset Sieve does not modify or delete source files.", ""]
     return "\n".join(lines)
+
