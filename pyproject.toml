@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "asset-sieve"
+version = "0.1.0"
+description = "Local audit reports for game art and image asset folders"
+readme = "README.md"
+requires-python = ">=3.10"
+license = {file = "LICENSE"}
+authors = [{name = "GhosTnever"}]
+dependencies = ["Pillow>=10,<13"]
+keywords = ["game-dev", "game-assets", "texture-audit", "duplicate-images", "asset-pipeline"]
+classifiers = ["Development Status :: 3 - Alpha", "Environment :: Console", "Intended Audience :: Developers", "License :: OSI Approved :: MIT License", "Operating System :: OS Independent", "Programming Language :: Python :: 3", "Topic :: Multimedia :: Graphics"]
+
+[project.scripts]
+asset-sieve = "asset_sieve.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["asset_sieve*"]
