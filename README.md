@@ -8,7 +8,7 @@ Asset Sieve only reads the selected folder. It never rewrites, moves, optimizes,
 
 Requires Python 3.10+.
 
-    py -m pip install "git+https://github.com/GhosTnever-lkm/asset-sieve.git@v0.1.2"
+    py -m pip install "git+https://github.com/GhosTnever-lkm/asset-sieve.git@v0.1.3"
     asset-sieve "D:\Games\MyProject\Assets" --md asset-report.md --json asset-report.json
 
 Run from a source checkout:
@@ -22,8 +22,8 @@ Run from a source checkout:
 - Per-file dimensions, image format, frame count, file size, and SHA-256 in JSON.
 - Files over the configurable size threshold (default 16 MiB).
 - Images with a width or height over the configurable limit (default 8192 px).
-- Files Pillow cannot read.
-- Total sizes by image format and directory.
+- Files Pillow cannot verify or open.
+- Total sizes by image format and directory in both Markdown and JSON reports.
 - Markdown and JSON output suitable for code review or release checklists.
 
 Examples:
@@ -35,7 +35,7 @@ The fail-on-warning option returns exit code 2 when findings exist; input or fil
 
 ## Scope and limits
 
-Supported formats: PNG, JPEG, WebP, GIF, BMP, and TIFF. Image metadata is read through Pillow. Duplicate detection is byte-for-byte; visually similar images encoded differently are not reported as duplicates. Thresholds are general signals, not platform-specific texture budgets. The tool does not inspect engine import settings, mipmaps, GPU memory, compression presets, or runtime usage.
+Supported formats: PNG, JPEG, WebP, GIF, BMP, and TIFF. Pillow verifies each file before it is included; damaged images are listed as unreadable. Duplicate detection is byte-for-byte; visually similar images encoded differently are not reported as duplicates. Thresholds are general signals, not platform-specific texture budgets. The tool does not inspect engine import settings, mipmaps, GPU memory, compression presets, or runtime usage.
 
 Reports contain local paths and should be reviewed before sharing. No files are uploaded.
 
@@ -51,6 +51,14 @@ Run the unit and CLI checks with:
 
 ## Support / Pro Version
 
-Asset Sieve is free and open source under MIT. There is no separate Pro build or paid feature set. If it helps your project, support development on Boosty or Buy Me a Coffee. Support does not unlock extra functionality.
+Asset Sieve is free and open source under MIT. There is no separate Pro build or paid feature set yet. If it helps your project, support development on [Boosty](https://boosty.to/azizazimov), [Buy Me a Coffee](https://buymeacoffee.com/azizazimov8), or [Gumroad](https://azimovian22.gumroad.com/).
 
+Optional donations:
 
+| Network | Receive address |
+|---|---|
+| Bitcoin | bc1qn75pj4n7gyl2k5kf2f97elvyenz52q6nn2g30u |
+| TRON (USDT TRC20) | TCBSy38X57hA6w2onJcxom24x1febc1mP1 |
+| BNB Smart Chain (BEP20) | 0xD431a917961E0b086B96D9F72b5C8fF19b19068a |
+
+Send assets only on the listed network. Sending through another network may result in a permanent loss.

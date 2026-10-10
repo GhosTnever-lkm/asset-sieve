@@ -61,6 +61,15 @@ class AssetSieveTests(unittest.TestCase):
         self.assertEqual(report["summary"]["unreadable"], 1)
         self.assertEqual(report["unreadable"][0]["path"], "broken.png")
 
+    def test_detects_truncated_image_after_valid_header(self):
+        image_path = self.make_image("truncated.png")
+        image_path.write_bytes(image_path.read_bytes()[:-12])
+
+        report = scan(self.root)
+
+        self.assertEqual(report["summary"]["unreadable"], 1)
+        self.assertEqual(report["unreadable"][0]["path"], "truncated.png")
+
     def test_excludes_named_directories_and_unsupported_files(self):
         self.make_image("Cache/hidden.png")
         self.make_image("Textures/visible.png")
@@ -85,6 +94,8 @@ class AssetSieveTests(unittest.TestCase):
         output = markdown(scan(self.root))
 
         self.assertIn("## Identical files", output)
+        self.assertIn("## By folder", output)
+        self.assertIn("(root)", output)
         self.assertIn("a.png", output)
         self.assertIn("does not modify or delete source files", output)
 
