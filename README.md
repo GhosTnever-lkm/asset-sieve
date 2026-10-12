@@ -11,7 +11,7 @@ Asset Sieve only reads the selected folder. It never rewrites, moves, optimizes,
 
 Requires Python 3.10+.
 
-    py -m pip install "git+https://github.com/GhosTnever-lkm/asset-sieve.git@v0.1.4"
+    py -m pip install "git+https://github.com/GhosTnever-lkm/asset-sieve.git@v0.1.5"
     asset-sieve "D:\Games\MyProject\Assets" --md asset-report.md --json asset-report.json
 
 Run from a source checkout:
@@ -28,6 +28,7 @@ Run from a source checkout:
 - Files Pillow cannot verify or open.
 - Total sizes by image format and directory in both Markdown and JSON reports.
 - Markdown and JSON output suitable for code review or release checklists.
+- Report output paths cannot overwrite a scanned image or point both formats at the same file.
 
 Examples:
 
@@ -40,7 +41,7 @@ The fail-on-warning option returns exit code 2 when findings exist; input or fil
 
 Supported formats: PNG, JPEG, WebP, GIF, BMP, and TIFF. Pillow verifies each file before it is included; damaged images are listed as unreadable. Duplicate detection is byte-for-byte; visually similar images encoded differently are not reported as duplicates. Thresholds are general signals, not platform-specific texture budgets. The tool does not inspect engine import settings, mipmaps, GPU memory, compression presets, or runtime usage.
 
-Reports contain local paths and should be reviewed before sharing. No files are uploaded.
+Reports contain local paths and should be reviewed before sharing. No files are uploaded. Reports can be saved inside the scanned folder, but not over a scanned image.
 
 ## License
 

@@ -2,10 +2,37 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import sys
 from pathlib import Path
 
 from .core import markdown, scan
+
+
+def _validate_report_paths(json_path: Path | None, md_path: Path | None, report: dict) -> None:
+    targets = [("JSON", path.expanduser().resolve()) for path in (json_path,) if path]
+    targets += [("Markdown", path.expanduser().resolve()) for path in (md_path,) if path]
+
+    if len(targets) == 2 and targets[0][1] == targets[1][1]:
+        raise ValueError("JSON and Markdown report paths resolve to the same file; choose different paths")
+
+    root = Path(report["root"])
+    sources = [root / item["path"] for item in report["assets"]]
+    sources += [root / item["path"] for item in report["unreadable"]]
+    for kind, target in targets:
+        for source in sources:
+            resolved_source = source.resolve()
+            same_file = target == resolved_source
+            if not same_file and target.exists() and resolved_source.exists():
+                try:
+                    same_file = os.path.samefile(target, resolved_source)
+                except OSError:
+                    same_file = False
+            if same_file:
+                raise ValueError(
+                    f"{kind} report path '{target}' points to scanned source image "
+                    f"'{resolved_source}'; choose a different output path"
+                )
 
 
 def main() -> int:
@@ -24,6 +51,7 @@ def main() -> int:
     try:
         report = scan(args.folder, max_file_mb=args.max_file_mb,
                       max_dimension=args.max_dimension, excludes=args.exclude)
+        _validate_report_paths(args.json_path, args.md_path, report)
         if args.json_path:
             args.json_path.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
         if args.md_path:
