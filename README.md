@@ -1,5 +1,8 @@
 # Asset Sieve
 
+[![CI](https://github.com/GhosTnever-lkm/asset-sieve/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/GhosTnever-lkm/asset-sieve/actions/workflows/ci.yml)
+[![Latest release](https://img.shields.io/github/v/release/GhosTnever-lkm/asset-sieve)](https://github.com/GhosTnever-lkm/asset-sieve/releases/latest)
+
 **Local texture and image-asset audit for game projects.** Find byte-identical images, unusually large files, oversized dimensions, and unreadable assets. Export Markdown or JSON reports for review.
 
 Asset Sieve only reads the selected folder. It never rewrites, moves, optimizes, or deletes source assets. It works across Unity, Unreal, Godot, and custom projects because it scans ordinary image files rather than engine internals.
@@ -8,7 +11,7 @@ Asset Sieve only reads the selected folder. It never rewrites, moves, optimizes,
 
 Requires Python 3.10+.
 
-    py -m pip install "git+https://github.com/GhosTnever-lkm/asset-sieve.git@v0.1.3"
+    py -m pip install "git+https://github.com/GhosTnever-lkm/asset-sieve.git@v0.1.4"
     asset-sieve "D:\Games\MyProject\Assets" --md asset-report.md --json asset-report.json
 
 Run from a source checkout:

@@ -1,6 +1,7 @@
 import contextlib
 import io
 import json
+import re
 import shutil
 import tempfile
 import unittest
@@ -9,6 +10,7 @@ from unittest.mock import patch
 
 from PIL import Image
 
+from asset_sieve import __version__
 from asset_sieve.cli import main
 from asset_sieve.core import markdown, scan
 
@@ -20,6 +22,15 @@ class AssetSieveTests(unittest.TestCase):
 
     def tearDown(self):
         self.temp.cleanup()
+
+    def test_version_is_consistent_across_package_metadata_and_report(self):
+        project = Path(__file__).resolve().parents[1]
+        self.assertEqual((project / "VERSION").read_text(encoding="utf-8").strip(), __version__)
+        metadata = (project / "pyproject.toml").read_text(encoding="utf-8")
+        match = re.search(r'(?m)^version = "([^"]+)"$', metadata)
+        self.assertIsNotNone(match)
+        self.assertEqual(match.group(1), __version__)
+        self.assertEqual(scan(self.root)["version"], __version__)
 
     def make_image(self, relative, size=(12, 6), color=(30, 60, 90, 255)):
         path = self.root / relative

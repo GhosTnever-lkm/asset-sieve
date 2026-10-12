@@ -8,6 +8,8 @@ from typing import Iterable
 
 from PIL import Image, UnidentifiedImageError
 
+from . import __version__
+
 DEFAULT_EXCLUDES = {".git", ".svn", "node_modules", "__pycache__", ".asset-sieve"}
 SUPPORTED = {".png", ".jpg", ".jpeg", ".webp", ".gif", ".bmp", ".tif", ".tiff"}
 
@@ -87,7 +89,7 @@ def scan(root: Path, *, max_file_mb: float = 16, max_dimension: int = 8192,
     warnings += [{"kind": "large-dimensions", "path": r["path"], "detail": f'{r["width"]}x{r["height"]} exceeds {max_dimension}px'} for r in large_dimensions]
     warnings += [{"kind": "unreadable", **item} for item in unreadable]
     return {
-        "tool": "Asset Sieve", "version": "0.1.3", "root": str(root),
+        "tool": "Asset Sieve", "version": __version__, "root": str(root),
         "summary": {
             "images": len(records), "total_bytes": sum(r["bytes"] for r in records),
             "duplicates": len(duplicates), "duplicate_bytes": sum(d["wasted_bytes"] for d in duplicates),
