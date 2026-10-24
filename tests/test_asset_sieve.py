@@ -98,6 +98,10 @@ class AssetSieveTests(unittest.TestCase):
             scan(self.root, max_file_mb=float("nan"))
         with self.assertRaises(ValueError):
             scan(self.root, max_dimension=0)
+        for invalid_limit in (float("nan"), float("inf"), 10.5, True):
+            with self.subTest(max_dimension=invalid_limit):
+                with self.assertRaisesRegex(ValueError, "max_dimension must be a positive integer"):
+                    scan(self.root, max_dimension=invalid_limit)
 
     def test_markdown_contains_findings_and_non_mutating_notice(self):
         image = self.make_image("a.png")

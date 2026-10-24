@@ -36,8 +36,10 @@ def scan(root: Path, *, max_file_mb: float = 16, max_dimension: int = 8192,
     root = root.expanduser().resolve(strict=True)
     if not root.is_dir():
         raise ValueError(f"Not a directory: {root}")
-    if not math.isfinite(max_file_mb) or max_file_mb <= 0 or max_dimension <= 0:
-        raise ValueError("Limits must be greater than zero")
+    if not math.isfinite(max_file_mb) or max_file_mb <= 0:
+        raise ValueError("max_file_mb must be finite and greater than zero")
+    if isinstance(max_dimension, bool) or not isinstance(max_dimension, int) or max_dimension <= 0:
+        raise ValueError("max_dimension must be a positive integer")
     excluded = DEFAULT_EXCLUDES | {item.casefold() for item in excludes}
     records, unreadable = [], []
     for path in _files(root, excluded):
