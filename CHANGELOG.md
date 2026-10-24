@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.1.6 - 2026-10-24
+
+- Reject non-integer, non-finite, and non-positive dimension limits passed to the Python API.
+- Add regression coverage for NaN, infinity, fractional, and boolean limits.
+
 ## 0.1.5 - 2026-10-12
 
 - Refuse report destinations that resolve to a scanned image, preventing accidental replacement of source assets.
