@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.1.7 - 2026-10-25
+
+- Label file-size warnings and CLI help in MiB, matching the existing 1,048,576-byte threshold calculation.
+- Clarify the legacy `--max-file-mb` option's unit in the README and add a warning-label regression assertion.
+
 ## 0.1.6 - 2026-10-24
 
 - Reject non-integer, non-finite, and non-positive dimension limits passed to the Python API.
