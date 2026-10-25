@@ -138,6 +138,35 @@ class AssetSieveTests(unittest.TestCase):
         self.assertIn("Identical files", md_path.read_text(encoding="utf-8"))
         self.assertIn("2 images", stdout.getvalue())
 
+    def test_cli_refuses_to_overwrite_scanned_images_with_reports(self):
+        for image_content in ("valid", "unreadable"):
+            for option in ("--json", "--md"):
+                with self.subTest(image_content=image_content, report_option=option):
+                    image_path = self.root / f"{image_content}.png"
+                    if image_content == "valid":
+                        self.make_image(image_path.name)
+                    else:
+                        image_path.write_bytes(b"not an image")
+                    original = image_path.read_bytes()
+                    stderr = io.StringIO()
+                    with patch("sys.argv", ["asset-sieve", str(self.root), option, str(image_path)]):
+                        with contextlib.redirect_stderr(stderr):
+                            status = main()
+
+                    self.assertEqual(status, 1)
+                    self.assertIn("points to scanned source image", stderr.getvalue())
+                    self.assertEqual(image_path.read_bytes(), original)
+
+    def test_cli_refuses_json_and_markdown_paths_that_resolve_to_same_file(self):
+        report_path = self.root / "report.json"
+        with patch("sys.argv", ["asset-sieve", str(self.root), "--json", str(report_path),
+                                "--md", str(report_path)]):
+            with contextlib.redirect_stderr(io.StringIO()):
+                status = main()
+
+        self.assertEqual(status, 1)
+        self.assertFalse(report_path.exists())
+
     def test_cli_warning_exit_code_is_opt_in(self):
         image = self.make_image("a.png")
         shutil.copyfile(image, self.root / "b.png")
