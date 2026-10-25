@@ -23,7 +23,7 @@ Run from a source checkout:
 
 - Identical files by SHA-256, with duplicate bytes grouped by path.
 - Per-file dimensions, image format, frame count, file size, and SHA-256 in JSON.
-- Files over the configurable size threshold (default 16 MiB).
+- Files over the configurable size threshold (default 16 MiB). The legacy `--max-file-mb` option is measured in MiB (1 MiB = 1,048,576 bytes).
 - Images with a width or height over the configurable limit (default 8192 px).
 - Files Pillow cannot verify or open.
 - Total sizes by image format and directory in both Markdown and JSON reports.

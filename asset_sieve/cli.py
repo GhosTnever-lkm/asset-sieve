@@ -43,7 +43,7 @@ def main() -> int:
     parser.add_argument("folder", type=Path, help="game art/assets folder to inspect")
     parser.add_argument("--json", dest="json_path", type=Path, help="write a JSON report")
     parser.add_argument("--md", dest="md_path", type=Path, help="write a Markdown report")
-    parser.add_argument("--max-file-mb", type=float, default=16, help="warn above this file size (default: 16)")
+    parser.add_argument("--max-file-mb", type=float, default=16, help="warn above this file size in MiB (default: 16 MiB)")
     parser.add_argument("--max-dimension", type=int, default=8192, help="warn above this pixel dimension (default: 8192)")
     parser.add_argument("--exclude", action="append", default=[], metavar="DIR", help="exclude a directory name (repeatable)")
     parser.add_argument("--fail-on-warning", action="store_true", help="return exit code 2 when findings exist")

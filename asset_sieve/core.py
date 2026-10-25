@@ -87,7 +87,7 @@ def scan(root: Path, *, max_file_mb: float = 16, max_dimension: int = 8192,
 
     warnings = []
     warnings += [{"kind": "duplicate", "paths": d["paths"], "detail": f'{d["wasted_bytes"]} duplicate bytes'} for d in duplicates]
-    warnings += [{"kind": "large-file", "path": r["path"], "detail": f'{r["bytes"]} bytes exceeds {max_file_mb:g} MB'} for r in oversized]
+    warnings += [{"kind": "large-file", "path": r["path"], "detail": f'{r["bytes"]} bytes exceeds {max_file_mb:g} MiB'} for r in oversized]
     warnings += [{"kind": "large-dimensions", "path": r["path"], "detail": f'{r["width"]}x{r["height"]} exceeds {max_dimension}px'} for r in large_dimensions]
     warnings += [{"kind": "unreadable", **item} for item in unreadable]
     return {

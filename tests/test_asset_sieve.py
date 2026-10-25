@@ -62,6 +62,8 @@ class AssetSieveTests(unittest.TestCase):
         self.assertEqual(report["oversized_dimensions"][0]["width"], 20)
         self.assertGreater(report["oversized_files"][0]["bytes"], 0)
         self.assertGreater(image.stat().st_size, 0)
+        size_warning = next(warning for warning in report["warnings"] if warning["kind"] == "large-file")
+        self.assertTrue(size_warning["detail"].endswith("MiB"))
 
     def test_lists_unreadable_supported_images(self):
         broken = self.root / "broken.png"
