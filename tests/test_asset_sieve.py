@@ -32,6 +32,13 @@ class AssetSieveTests(unittest.TestCase):
         self.assertEqual(match.group(1), __version__)
         self.assertEqual(scan(self.root)["version"], __version__)
 
+    def test_readme_install_example_uses_the_current_release_tag(self):
+        project = Path(__file__).resolve().parents[1]
+        readme = (project / "README.md").read_text(encoding="utf-8")
+        match = re.search(r"asset-sieve\.git@v([\d.]+)", readme)
+        self.assertIsNotNone(match)
+        self.assertEqual(match.group(1), __version__)
+
     def make_image(self, relative, size=(12, 6), color=(30, 60, 90, 255)):
         path = self.root / relative
         path.parent.mkdir(parents=True, exist_ok=True)

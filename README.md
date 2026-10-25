@@ -11,7 +11,7 @@ Asset Sieve only reads the selected folder. It never rewrites, moves, optimizes,
 
 Requires Python 3.10+.
 
-    py -m pip install "git+https://github.com/GhosTnever-lkm/asset-sieve.git@v0.1.6"
+    py -m pip install "git+https://github.com/GhosTnever-lkm/asset-sieve.git@v0.1.7"
     asset-sieve "D:\Games\MyProject\Assets" --md asset-report.md --json asset-report.json
 
 Run from a source checkout:
